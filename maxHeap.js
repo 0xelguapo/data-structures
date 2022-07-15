@@ -1,18 +1,10 @@
-class Node {
-  constructor(value, priority) {
-    this.value = value;
-    this.priority = priority;
-  }
-}
-
-class PriorityQueue {
+class MaxHeap {
   constructor() {
     this.heapElements = [];
   }
 
-  insert(value, priority) {
-    const newNode = new Node(value, priority);
-    this.heapElements.push(newNode);
+  insert(value) {
+    this.heapElements.push(value);
     let currentElementIndex = this.heapElements.length - 1;
     let parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1;
 
@@ -21,11 +13,11 @@ class PriorityQueue {
     //we guarantee that the biggest element is at the top of the heap
     while (
       parentElementIndex >= 0 &&
-      this.heapElements[currentElementIndex].priority >
-        this.heapElements[parentElementIndex].priority
+      this.heapElements[currentElementIndex] >
+        this.heapElements[parentElementIndex]
     ) {
       const parentElement = this.heapElements[parentElementIndex];
-      this.heapElements[parentElementIndex] = newNode;
+      this.heapElements[parentElementIndex] = value;
       this.heapElements[currentElementIndex] = parentElement;
       currentElementIndex = parentElementIndex;
       parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1;
@@ -48,14 +40,14 @@ class PriorityQueue {
     //we use the bigger childNode as the new topNode until we find no more bigger values or the array is empty
     let childElementIndex =
       this.heapElements[rightChildIndex] &&
-      this.heapElements[rightChildIndex].priority >= this.heapElements[leftChildIndex].priority
+      this.heapElements[rightChildIndex] >= this.heapElements[leftChildIndex]
         ? rightChildIndex
         : leftChildIndex;
 
     while (
       this.heapElements[childElementIndex] &&
-      this.heapElements[currentElementIndex].priority <=
-        this.heapElements[childElementIndex].priority
+      this.heapElements[currentElementIndex] <=
+        this.heapElements[childElementIndex]
     ) {
       const currentNode = this.heapElements[currentElementIndex];
       const currentChildNode = this.heapElements[childElementIndex];
@@ -65,12 +57,3 @@ class PriorityQueue {
     return topElement;
   }
 }
-
-const heap = new PriorityQueue()
-
-heap.insert('clean up', 1)
-heap.insert('taxes', 99)
-heap.insert('feed dog', 100)
- 
-console.log(heap.process())
-console.log(heap)
