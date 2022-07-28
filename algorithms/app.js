@@ -1,21 +1,41 @@
-function findElement(sortedArr, element, offset = 0) {
-  let startIndex = 0;
-  let endIndex = sortedArr.length - 1;
+// merge sort: split the array multiple times until we have only 2-element arrays left.
+// we then sort these arrays and merge them back together
 
-  const middleIndex = startIndex + Math.floor((endIndex - startIndex) / 2)
+function sort(arr) {
+  if (arr.length < 2) return arr;
 
-  if(sortedArr[middleIndex] === element) return offset + middleIndex
-
-  if(sortedArr[middleIndex] < element) {
-    startIndex = middleIndex + 1
-    offset = offset + middleIndex + 1;  //review offset
+  if (arr.length === 2) {
+    return arr[0] > arr[1] ? [arr[1], arr[0]] : arr;
   }
-  else endIndex = middleIndex;
 
-  return findElement(sortedArr.slice(startIndex, endIndex + 1), element, offset)
+  const middle = Math.floor(arr.length / 2);
+  const leftArray = arr.slice(0, middle);
+  const rightArray = arr.slice(middle);
 
+  const leftSortedArray = sort(leftArray);
+  const rightSortedArray = sort(rightArray);
+
+  let mergedArr = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  while (
+    leftIndex < leftSortedArray.length ||
+    rightIndex < rightSortedArray.length
+  ) {
+    if (
+      leftIndex >= leftSortedArray.length ||
+      leftSortedArray[leftIndex] > rightSortedArray[rightIndex]
+    ) {
+      mergedArr.push(rightSortedArray[rightIndex]);
+      rightIndex++;
+    } else {
+      mergedArr.push(leftSortedArray[leftIndex]);
+      leftIndex++;
+    }
+  }
+  return mergedArr
 }
 
-const arr = [1, 5, 9, 13, 99, 100];
-
-console.log(findElement(arr, 99));
+const sortedArray = sort([-10, 33, 5, 10, 3, 9, -19, -99, 100]);
+console.log(sortedArray);
