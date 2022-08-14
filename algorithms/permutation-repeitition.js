@@ -12,11 +12,8 @@ function getPermutations(options, length) {
   // combine these length of 1 arrays with all other options
 
   for (const option of options) {
-    console.log('OPTION', option)
     for (const existingPermutation of partialPermutations) {
-      console.log('EXISTING', existingPermutation)
-      permutations.push([option].concat(existingPermutation))
-      console.log('PERMUTATIONSARRAY', permutations)
+      permutations.push([option].concat(existingPermutation));
     }
   }
 
