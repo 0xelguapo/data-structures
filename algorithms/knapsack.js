@@ -2,6 +2,7 @@
 // go through all items and possible scenarios
 
 function knapsack(items, cap, itemIndex) {
+  // start by looking at just one item.
 
   if (cap === 0 || itemIndex < 0) {
     return { items: [], value: 0, weight: 0 };
@@ -35,8 +36,8 @@ function knapsack(items, cap, itemIndex) {
 
 const items = [
   { name: "a", value: 3, weight: 3 },
-  { name: "b", value: 6, weight: 5 },
-  { name: "c", value: 10, weight: 4 },
+  { name: "b", value: 6, weight: 8 },
+  { name: "c", value: 10, weight: 3 },
 ];
 
 const maxCap = 8;
