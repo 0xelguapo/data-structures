@@ -23,6 +23,8 @@ function sort(arr) {
     leftIndex < leftSortedArray.length ||
     rightIndex < rightSortedArray.length
   ) {
+    // the left array will always be shorter than the right if uneven
+    // if the left array is exhausted, there has to be an item in the right array still
     if (
       leftIndex >= leftSortedArray.length ||
       leftSortedArray[leftIndex] > rightSortedArray[rightIndex]
