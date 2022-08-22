@@ -8,28 +8,32 @@
 function getPermutations(arr) {
   const permutations = [];
 
-  if(arr.length === 1) return [arr];
+  if (arr.length === 1) return [arr];
 
   const partialPermutations = getPermutations(arr.slice(1));
   // eventually will be just [['order food']]
-
+  console.log("pPerms", partialPermutations);
   const firstOption = arr[0];
+  //'buy groceries'
+  console.log("firstOption", firstOption);
 
-  for(let i = 0; i < partialPermutations.length; i++) {
+  for (let i = 0; i < partialPermutations.length; i++) {
     const partialPermutation = partialPermutations[i];
+    console.log("partialPermutation", partialPermutation);
 
     for (let j = 0; j <= partialPermutation.length; j++) {
       const permutationInFront = partialPermutation.slice(0, j);
       const permutationAfter = partialPermutation.slice(j);
-      permutations.push(permutationInFront.concat([firstOption], permutationAfter))
+      console.log("inFront", permutationInFront);
+      console.log("After", permutationAfter);
+      permutations.push(
+        permutationInFront.concat([firstOption], permutationAfter)
+      );
     }
   }
 
-  return permutations
+  return permutations;
 }
 
-
-
-
-const todoListItems = ['Walk the dog', 'clean the toilet', 'buy groceries', 'order food'];
-console.log(getPermutations(todoListItems))
+const todoListItems = ["clean the toilet", "buy groceries", "order food"];
+console.log(getPermutations(todoListItems));
